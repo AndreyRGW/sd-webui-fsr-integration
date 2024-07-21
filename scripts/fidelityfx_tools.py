@@ -25,7 +25,7 @@ def getFidelityFXEXE():
 
 def runFidelityFX_(scale, input_file, output_file):
     exe = getFidelityFXEXE()
-    cmd = [exe, '-Scale', f'{scale}x', f'{scale}x', '-Mode', 'CAS', '-Sharpness', '0.7', input_file, output_file]
+    cmd = [exe, '-Scale', f'{scale}x', f'{scale}x', '-Mode', 'CAS', '-Sharpness', '1.0', input_file, output_file]
     print(' '.join(cmd))
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
