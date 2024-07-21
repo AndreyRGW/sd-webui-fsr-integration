@@ -1,6 +1,6 @@
 # AMD FidelityFX Super Resolution (FSR) 1.0 integration
 
-This extension integrates [AMD FidelityFX Super Resolution (FSR) 1.0](https://www.amd.com/en/technologies/fidelityfx-super-resolution) upscaling feature into [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui). You can use it inside *hires fix*, *upscaler_for_img2img* or in the *extras* tab. You need to have the FidelityFX CLI executable and provide a path to `FidelityFX_CLI.exe` in `Settings/Upscaling` of webui. You can get FidelityFX_CLI from [here](https://github.com/GPUOpen-Effects/FidelityFX-CLI/releases).
+This extension integrates [AMD FidelityFX Super Resolution (FSR) 1.0](https://gpuopen.com/fidelityfx-superresolution/) upscaling feature into [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui). You can use it inside *hires fix*, *upscaler_for_img2img* or in the *extras* tab. You need to have the FidelityFX CLI executable and provide a path to `FidelityFX_CLI.exe` in `Settings/Upscaling` of webui. You can get FidelityFX_CLI from [here](https://github.com/GPUOpen-Effects/FidelityFX-CLI/releases).
 
 ![](/images/preview.png)
 ![](/images/upscalers.png)
