@@ -1,27 +1,29 @@
-import subprocess, os
+import subprocess
+import zipfile
+import os
 from tempfile import TemporaryDirectory
 from PIL import Image
-import gradio as gr
-from modules import shared, script_callbacks
+from modules import scripts, modelloader
 
-def on_ui_settings():
-    shared.opts.add_option(
-        "fidelityfx_cli_exe",
-        shared.OptionInfo(
-            "",
-            "Path to FidelityFX CLI executable: FidelityFX_CLI.exe",
-            gr.Textbox,
-            section=('upscaling', "Upscaling")
-        )
-    )
 
-script_callbacks.on_ui_settings(on_ui_settings)
+extension_root = scripts.basedir()
+fidelityFX = os.path.join(extension_root, 'FidelityFX-CLI')
+fidelityFX_zip = os.path.join(extension_root, 'FidelityFX-CLI.zip')
+fidelityFX_exe = os.path.join(fidelityFX, 'FidelityFX_CLI.exe')
+
 
 def getFidelityFXEXE():
-    exe = shared.opts.data.get("fidelityfx_cli_exe", "")
-    if not exe or not os.path.exists(exe):
-        raise Exception(f'FidelityFX CLI executable file is not found. Please set it up in Settings/Upscaling')
-    return exe
+    if not os.path.exists(fidelityFX_exe):
+        modelloader.load_file_from_url(
+            url='https://github.com/GPUOpen-Effects/FidelityFX-CLI/releases/download/v1.0.3/FidelityFX-CLI-v1.0.3.zip',
+            model_dir=extension_root,
+            file_name='FidelityFX-CLI.zip',
+            hash_prefix='d280f245730c6d163c0e072a881ed4933b32e67b9de5494650119afa9649ea11',
+        )
+        with zipfile.ZipFile(fidelityFX_zip, 'r') as zip_ref:
+            zip_ref.extractall(fidelityFX)
+    return fidelityFX_exe
+
 
 def runFidelityFX_(scale, input_file, output_file):
     exe = getFidelityFXEXE()
@@ -30,6 +32,7 @@ def runFidelityFX_(scale, input_file, output_file):
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
         raise Exception(f'FidelityFX CLI exited with code {result.returncode}. Error: {result.stderr}')
+
 
 def runFidelityFX(img: Image.Image, scale: int) -> Image.Image:
     tmpInDir = TemporaryDirectory()
