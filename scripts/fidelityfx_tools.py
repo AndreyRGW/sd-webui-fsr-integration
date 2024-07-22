@@ -28,6 +28,8 @@ def getFidelityFXEXE():
 def runFidelityFX_(scale, input_file, output_file):
     exe = getFidelityFXEXE()
     cmd = [exe, '-Scale', f'{scale}x', f'{scale}x', '-Mode', 'CAS', '-Sharpness', '1.0', input_file, output_file]
+    if os.name != 'nt':
+        cmd = ['wine'] + cmd
     print(' '.join(cmd))
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
@@ -38,9 +40,9 @@ def runFidelityFX(img: Image.Image, scale: int) -> Image.Image:
     tmpInDir = TemporaryDirectory()
     tmpOutDir = TemporaryDirectory()
     try:
-        fileIn = os.path.join(tmpInDir.name, 'file.png')
-        fileOut = os.path.join(tmpOutDir.name, 'file.png')
-        img.convert('RGB').save(fileIn, 'PNG')
+        fileIn = os.path.join(tmpInDir.name, 'file.jpg')
+        fileOut = os.path.join(tmpOutDir.name, 'file.jpg')
+        img.convert('RGB').save(fileIn, quality=100)
         runFidelityFX_(scale, fileIn, fileOut)
         if not os.path.exists(fileOut):
             raise Exception("FidelityFX didn't process any image")
