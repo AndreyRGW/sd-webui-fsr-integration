@@ -1,6 +1,8 @@
 # AMD FidelityFX Super Resolution (FSR) 1.0 integration
 
-This extension integrates [AMD FidelityFX Super Resolution (FSR) 1.0](https://gpuopen.com/fidelityfx-superresolution/) upscaling feature into [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui). AMD FSR1 is based on Lanczos upscale, so don't expect anything amazing. You can use it inside *hires fix*, *upscaler_for_img2img* or in the *extras* tab. Extension will automatically download the FidelityFX_CLI executable during the first run. No manual setup is required. For linux you need to have `wine` in `PATH`
+This extension integrates [AMD FidelityFX Super Resolution (FSR) 1.0](https://gpuopen.com/fidelityfx-superresolution/) upscaling feature into [stable-diffusion-webui](https://github.com/AUTOMATIC1111/stable-diffusion-webui). AMD FSR1 is based on Lanczos upscale, so don't expect anything amazing. You can use it inside *hires fix*, *upscaler_for_img2img* or in the *extras* tab. 
+
+Extension will automatically download the FidelityFX_CLI executable during the first run. No manual setup is required. For linux you need to have `wine` in `PATH`
 
 ![](/images/preview.png)
 ![](/images/upscalers.png)
