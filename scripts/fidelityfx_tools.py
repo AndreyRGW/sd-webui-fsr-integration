@@ -25,11 +25,20 @@ def getFidelityFXEXE():
     return fidelityFX_exe
 
 
-def runFidelityFX_(scale, input_file, output_file):
+def runFidelityFX_(scale=None, input_file=None, output_file=None, resize_x=None, resize_y=None):
     exe = getFidelityFXEXE()
-    cmd = [exe, '-Scale', f'{scale}x', f'{scale}x', '-Mode', 'CAS', '-Sharpness', '1.0', input_file, output_file]
+
+    # Command to run FidelityFX
+    if resize_x and resize_y:
+        cmd = [exe, '-Scale', f'{resize_x}', f'{resize_y}', '-Mode', 'CAS', '-Sharpness', '1.0', input_file, output_file]
+    elif scale:
+        cmd = [exe, '-Scale', f'{scale}x', f'{scale}x', '-Mode', 'CAS', '-Sharpness', '1.0', input_file, output_file]
+    else:
+        raise ValueError("Either scale or resize_x and resize_y must be provided")
+
     if os.name != 'nt':
         cmd = ['wine'] + cmd
+
     print(' '.join(cmd))
     result = subprocess.run(cmd, capture_output=True, text=True)
     if result.returncode != 0:
