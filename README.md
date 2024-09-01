@@ -7,7 +7,7 @@ Extension will automatically download the FidelityFX_CLI executable during the f
 ![](/images/preview.png)
 ![](/images/upscalers.png)
 
-This extension offers FSR 1.0 Contrast Adaptive Sharpening upscaling at 2x, 3x, and 4x scales.
+This extension offers FSR 1.0 Contrast Adaptive Sharpening upscaling at 2x, 3x, and 4x scales, as well as in a universal mode that is tied to the scale you set in hiresfix.
 
 # Platform Support
 This extension is primarily designed for Windows. For linux you need to have `wine` in `PATH`
