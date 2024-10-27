@@ -14,12 +14,21 @@ fidelityFX_exe = os.path.join(fidelityFX, 'FidelityFX_CLI.exe')
 
 def getFidelityFXEXE():
     if not os.path.exists(fidelityFX_exe):
-        modelloader.load_file_from_url(
-            url='https://github.com/GPUOpen-Effects/FidelityFX-CLI/releases/download/v1.0.3/FidelityFX-CLI-v1.0.3.zip',
-            model_dir=extension_root,
-            file_name='FidelityFX-CLI.zip',
-            hash_prefix='d280f245730c6d163c0e072a881ed4933b32e67b9de5494650119afa9649ea11',
-        )
+        try:
+            # First try with hash_prefix
+            modelloader.load_file_from_url(
+                url='https://github.com/GPUOpen-Effects/FidelityFX-CLI/releases/download/v1.0.3/FidelityFX-CLI-v1.0.3.zip',
+                model_dir=extension_root,
+                file_name='FidelityFX-CLI.zip',
+                hash_prefix='d280f245730c6d163c0e072a881ed4933b32e67b9de5494650119afa9649ea11',
+            )
+        except TypeError:
+            # If hash_prefix is not supported, try without it
+            modelloader.load_file_from_url(
+                url='https://github.com/GPUOpen-Effects/FidelityFX-CLI/releases/download/v1.0.3/FidelityFX-CLI-v1.0.3.zip',
+                model_dir=extension_root,
+                file_name='FidelityFX-CLI.zip'
+            )
         with zipfile.ZipFile(fidelityFX_zip, 'r') as zip_ref:
             zip_ref.extractall(fidelityFX)
     return fidelityFX_exe
